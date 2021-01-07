@@ -39,33 +39,33 @@ pg_cursor = pg_conn.cursor()
 @app.route('/populate')
 def populate():
     sql = '''
-        CREATE TABLE `appliances` (
-        `app_id` int(11) NOT NULL,
-        `user_id` int(11) NOT NULL,
-        `name` varchar(255) NOT NULL,
-        `type` varchar(255) NOT NULL,
-        `power` float NOT NULL,
-        `duration` float NOT NULL,
-        `frequency` varchar(255) NOT NULL,
-        `daily_usage` float NOT NULL,
-        `monthly_usage` float NOT NULL,
-        `daily_cost` float NOT NULL,
-        `monthly_cost` float NOT NULL,
-        `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-        `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+        CREATE TABLE appliances (
+        app_id int(11) NOT NULL,
+        user_id` int(11) NOT NULL,
+        name` varchar(255) NOT NULL,
+        type` varchar(255) NOT NULL,
+        power` float NOT NULL,
+        duration float NOT NULL,
+        frequency varchar(255) NOT NULL,
+        daily_usage float NOT NULL,
+        monthly_usage float NOT NULL,
+        daily_cost float NOT NULL,
+        monthly_cost float NOT NULL,
+        created_at timestamp NOT NULL DEFAULT current_timestamp(),
+        updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
         )'''
 
     pg_cursor.execute(sql)
 
     sql = '''
-        CREATE TABLE `users` (
-        `user_id` int(11) NOT NULL,
-        `name` varchar(255) NOT NULL,
-        `email` varchar(255) NOT NULL,
-        `password` varchar(255) NOT NULL,
-        `cost_limit` float NOT NULL DEFAULT 1000,
-        `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-        `updated_at` timestamp NULL DEFAULT current_timestamp()
+        CREATE TABLE users (
+        user_id int(11) NOT NULL,
+        name varchar(255) NOT NULL,
+        email varchar(255) NOT NULL,
+        password varchar(255) NOT NULL,
+        cost_limit float NOT NULL DEFAULT 1000,
+        created_at timestamp NOT NULL DEFAULT current_timestamp(),
+        updated_at timestamp NULL DEFAULT current_timestamp()
         )'''
     pg_cursor.execute(sql)
 
