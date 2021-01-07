@@ -68,6 +68,7 @@ def populate():
         updated_at timestamp NULL DEFAULT current_timestamp
         )'''
     pg_cursor.execute(sql)
+    return redirect('/')
 
 
 
