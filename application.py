@@ -84,46 +84,6 @@ class Users(db.Model):
         self.cost_limit = cost_limit
 
 
-
-@app.route('/populate')
-def populate():
-    pg_cursor.execute("DROP TABLE IF EXISTS appliances")
-    pg_cursor.execute("DROP TABLE IF EXISTS users")
-    sql = '''
-        CREATE TABLE appliances (
-        app_id int NOT NULL,
-        user_id int NOT NULL,
-        name varchar(255) NOT NULL,
-        type varchar(255) NOT NULL,
-        power float NOT NULL,
-        duration float NOT NULL,
-        frequency varchar(255) NOT NULL,
-        daily_usage float NOT NULL,
-        monthly_usage float NOT NULL,
-        daily_cost float NOT NULL,
-        monthly_cost float NOT NULL,
-        created_at timestamp NOT NULL DEFAULT current_timestamp,
-        updated_at timestamp NOT NULL DEFAULT current_timestamp
-        )'''
-
-    pg_cursor.execute(sql)
-
-    sql = '''
-        CREATE TABLE users (
-        user_id int NOT NULL,
-        name varchar(255) NOT NULL,
-        email varchar(255) NOT NULL,
-        password varchar(255) NOT NULL,
-        cost_limit float NOT NULL DEFAULT 1000,
-        created_at timestamp NOT NULL DEFAULT current_timestamp,
-        updated_at timestamp NULL DEFAULT current_timestamp
-        )'''
-    pg_cursor.execute(sql)
-    return redirect('/')
-
-
-
-
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -340,7 +300,7 @@ def signup():
        
 
         pg_cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", [name, email, generate_password_hash(password)])
-        
+        pg_conn.commit()
 
         # cur = mysql.connection.cursor()
         # cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, generate_password_hash(password)))
