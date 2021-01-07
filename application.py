@@ -1,5 +1,6 @@
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 # from flask_mysql_connector import MySQL
+from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from flask_session import Session
 from tempfile import mkdtemp
@@ -29,11 +30,59 @@ Session(app)
 mysql = MySQL(app)
 
 
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://hqqhtuffmqljby:5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4@ec2-3-215-207-12.compute-1.amazonaws.com:5432/daeased18jut3h'
+
+
+db = SQLAlchemy(app)
+
 pg_conn = psycopg2.connect(
     database="daeased18jut3h", user="hqqhtuffmqljby", password="5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4", host="ec2-3-215-207-12.compute-1.amazonaws.com", port="5432"
 )
 
 pg_cursor = pg_conn.cursor()
+
+
+class Appliances(db.Model):
+    __tablename__ = 'appliances'
+    app_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    name = db.Column(db.String(200))
+    type = db.Column(db.String(200))
+    power = db.Column(db.Float)
+    duration = db.Column(db.Float)
+    frequency = db.Column(db.Float)
+    daily_usage = db.Column(db.Float)
+    monthly_usage = db.Column(db.Float)
+    daily_cost = db.Column(db.Float)
+    monthly_cost = db.Column(db.Float)
+
+    def __init__(self, user_id, name, type, power, duration, frequency, daily_usage, monthly_usage, monthly_cost, daily_cost):
+        self.user_id = user_id
+        self.name = name
+        self.type = type
+        self.power = power
+        self.duration = duration
+        self.frequency = frequency
+        self.daily_usage = daily_usage
+        self.monthly_usage = monthly_usage
+        self.daily_cost = daily_cost
+        self.monthly_cost = monthly_cost
+
+
+class Users(db.Model):
+    __tablename__ = 'users'
+    user_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    email = db.Column(db.String(200), unique=True)
+    password = db.Column(db.String(200))
+    cost_limit = db.Column(db.Float)
+
+    def __init__(self, name, email, password, cost_limit):
+        self.name = name
+        self.email = email
+        self.password = password
+        self.cost_limit = cost_limit
+
 
 
 @app.route('/populate')
@@ -335,3 +384,10 @@ for code in default_exceptions:
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
+
+
