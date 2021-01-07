@@ -259,7 +259,7 @@ def add():
     pg_cursor.execute("INSERT INTO appliances (user_id, name, type, power, frequency, duration, daily_usage, monthly_usage, daily_cost, monthly_cost) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [user_id, name, app_type, power, frequency, duration, daily_usage, monthly_usage, daily_cost, monthly_cost])
     pg_conn.commit()
     
-    return redirect('/')
+    return redirect('/home')
 
 
 @app.route('/delete', methods=["POST"])
@@ -268,7 +268,7 @@ def delete():
 
     pg_cursor.execute("DELETE FROM appliances WHERE app_id = %s", [app_id])
     pg_conn.commit()
-    return redirect('/')
+    return redirect('/home')
 
 
 @app.route('/setlimit', methods=["POST"])
@@ -277,7 +277,7 @@ def setlimit():
     pg_cursor.execute("UPDATE users SET cost_limit = %s WHERE user_id = %s", [cost_limit, session.get('user_id')])
     pg_conn.commit()
     session['isLimitSet'] = 1
-    return redirect('/')
+    return redirect('/home')
 
 
 @app.route('/signup', methods=["POST"])
@@ -296,7 +296,7 @@ def signup():
         # cur = mysql.connection.cursor()
         # cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, generate_password_hash(password)))
         # mysql.connection.commit()
-        return redirect('/')
+        return redirect('/home')
         
         
 @app.route('/logout', methods=["POST"])
@@ -318,7 +318,7 @@ def update():
     pg_cursor.execute("UPDATE users SET name = %s, email = %s, password = %s WHERE user_id = %s", [name, email, generate_password_hash(password), session.get('user_id')])
     pg_conn.commit()
 
-    return redirect('/')
+    return redirect('/home')
 
 
 def errorhandler(e):
