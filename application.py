@@ -290,7 +290,7 @@ def signup():
 
        
 
-        pg_cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", [name, email, generate_password_hash(password)])
+        pg_cursor.execute("INSERT INTO users (name, email, password, cost_limit) VALUES (%s, %s, %s, '1000')", [name, email, generate_password_hash(password)])
         pg_conn.commit()
 
         # cur = mysql.connection.cursor()
