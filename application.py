@@ -114,19 +114,16 @@ def login():
         email = request.form.get('email')
         password= request.form.get('password')
         
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * from users WHERE email = %s", [email])
-        user = cur.fetchall()
-        cur.close()
+        pg_cursor.execute("SELECT * from users WHERE email = %s", [email])
+        user = pg_cursor.fetchall()
 
         if len(user) <= 0 or not check_password_hash(user[0][3], password):
             return redirect('/')
         
         session['user_id'] = user[0][0]
 
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * from appliances WHERE user_id = %s", [user[0][0]])
-        x = cur.fetchall()
+        pg_cursor.execute("SELECT * from appliances WHERE user_id = %s", [user[0][0]])
+        x = pg_cursor.fetchall()
 
         if len(x) > 0:
             session['isLimitSet'] = 1
@@ -146,19 +143,16 @@ def index():
 @login_required
 def home():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * from users WHERE user_id = %s", [session.get('user_id')])
-    user = cur.fetchall()
-    cur.close()
+    pg_cursor.execute("SELECT * from users WHERE user_id = %s", [session.get('user_id')])
+    user = pg_cursor.fetchall()
 
     if session.get('isLimitSet') is None:
         wasSet = 0
     else:
         wasSet = 1
     
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * from appliances WHERE user_id = %s", [session.get('user_id')])
-    apps = cur.fetchall()
-    cur.close()
+    pg_cursor.execute("SELECT * from appliances WHERE user_id = %s", [session.get('user_id')])
+    apps = pg_cursor.fetchall()
 
     length = len(apps)
 
@@ -262,9 +256,8 @@ def add():
     
 
 
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO appliances (user_id, name, type, power, frequency, duration, daily_usage, monthly_usage, daily_cost, monthly_cost) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [user_id, name, app_type, power, frequency, duration, daily_usage, monthly_usage, daily_cost, monthly_cost])
-    mysql.connection.commit()
+    pg_cursor.execute("INSERT INTO appliances (user_id, name, type, power, frequency, duration, daily_usage, monthly_usage, daily_cost, monthly_cost) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [user_id, name, app_type, power, frequency, duration, daily_usage, monthly_usage, daily_cost, monthly_cost])
+    pg_conn.commit()
     
     return redirect('/')
 
@@ -274,17 +267,16 @@ def delete():
     app_id = request.form.get('app_id')
 
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM appliances WHERE app_id = %s", [app_id])
-    mysql.connection.commit()
+    pg_cursor.execute("DELETE FROM appliances WHERE app_id = %s", [app_id])
+    pg_conn.commit()
     return redirect('/')
 
 
 @app.route('/setlimit', methods=["POST"])
 def setlimit():
     cost_limit = request.form.get('cost_limit')
-    cur = mysql.connection.cursor()
-    cur.execute("UPDATE users SET cost_limit = %s WHERE user_id = %s", [cost_limit, session.get('user_id')])
-    mysql.connection.commit()
+    pg_cursor.execute("UPDATE users SET cost_limit = %s WHERE user_id = %s", [cost_limit, session.get('user_id')])
+    pg_conn.commit()
     session['isLimitSet'] = 1
     return redirect('/')
 
@@ -324,9 +316,8 @@ def update():
     if password != confirm:
         return redirect('/')
     
-    cur = mysql.connection.cursor()
-    cur.execute("UPDATE users SET name = %s, email = %s, password = %s WHERE user_id = %s", [name, email, generate_password_hash(password), session.get('user_id')])
-    mysql.connection.commit()
+    pg_cur.execute("UPDATE users SET name = %s, email = %s, password = %s WHERE user_id = %s", [name, email, generate_password_hash(password), session.get('user_id')])
+    pg_conn.commit()
 
     return redirect('/')
 
