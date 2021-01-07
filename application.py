@@ -51,8 +51,8 @@ def populate():
         monthly_usage float NOT NULL,
         daily_cost float NOT NULL,
         monthly_cost float NOT NULL,
-        created_at timestamp NOT NULL DEFAULT current_timestamp(),
-        updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+        created_at timestamp NOT NULL DEFAULT current_timestamp,
+        updated_at timestamp NOT NULL DEFAULT current_timestamp
         )'''
 
     pg_cursor.execute(sql)
@@ -64,8 +64,8 @@ def populate():
         email varchar(255) NOT NULL,
         password varchar(255) NOT NULL,
         cost_limit float NOT NULL DEFAULT 1000,
-        created_at timestamp NOT NULL DEFAULT current_timestamp(),
-        updated_at timestamp NULL DEFAULT current_timestamp()
+        created_at timestamp NOT NULL DEFAULT current_timestamp,
+        updated_at timestamp NULL DEFAULT current_timestamp
         )'''
     pg_cursor.execute(sql)
 
