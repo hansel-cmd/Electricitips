@@ -75,7 +75,7 @@ class Users(db.Model):
     name = db.Column(db.String(200))
     email = db.Column(db.String(200), unique=True)
     password = db.Column(db.String(200))
-    cost_limit = db.Column(db.Float)
+    cost_limit = db.Column(db.Float, default=1000)
 
     def __init__(self, name, email, password, cost_limit):
         self.name = name
@@ -192,9 +192,8 @@ def home():
     monthly_usage = round(monthly_usage, 2)
 
     error = 0
-    if user[0][4] is not None:
-        if monthly_cost > user[0][4]:
-            error = 1
+    if monthly_cost > user[0][4]:
+        error = 1
     
     
     if monthly_usage != 0:
@@ -209,6 +208,7 @@ def home():
         pmt3 = 0
         pmt4 = 0
         pmt5 = 0
+
 
     outer_holder = monthly_cost / user[0][4] * 100
     if outer_holder < 100:
