@@ -11,3 +11,4 @@ flask_mysqldb
 # os
 flask_session
 psycopg2
+flask_sqlalchemy
