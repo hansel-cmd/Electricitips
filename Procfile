@@ -1,1 +1,1 @@
-web: gunicorn wgsi --log file -
+web: gunicorn -b :$PORT wgsi:app
