@@ -192,8 +192,9 @@ def home():
     monthly_usage = round(monthly_usage, 2)
 
     error = 0
-    if monthly_cost > user[0][4]:
-        error = 1
+    if user[0][4] is not None:
+        if monthly_cost > user[0][4]:
+            error = 1
     
     
     if monthly_usage != 0:
