@@ -142,7 +142,6 @@ def index():
 @app.route('/home')
 @login_required
 def home():
-    cur = mysql.connection.cursor()
     pg_cursor.execute("SELECT * from users WHERE user_id = %s", [session.get('user_id')])
     user = pg_cursor.fetchall()
 
@@ -266,7 +265,6 @@ def add():
 def delete():
     app_id = request.form.get('app_id')
 
-    cur = mysql.connection.cursor()
     pg_cursor.execute("DELETE FROM appliances WHERE app_id = %s", [app_id])
     pg_conn.commit()
     return redirect('/')
@@ -316,7 +314,7 @@ def update():
     if password != confirm:
         return redirect('/')
     
-    pg_cur.execute("UPDATE users SET name = %s, email = %s, password = %s WHERE user_id = %s", [name, email, generate_password_hash(password), session.get('user_id')])
+    pg_cursor.execute("UPDATE users SET name = %s, email = %s, password = %s WHERE user_id = %s", [name, email, generate_password_hash(password), session.get('user_id')])
     pg_conn.commit()
 
     return redirect('/')
