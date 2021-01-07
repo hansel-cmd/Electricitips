@@ -8,33 +8,66 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import os
 import urllib.parse
+
+
 import psycopg2
+
 app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-# app.config['MYSQL_HOST'] = 'localhost'
-# app.config['MYSQL_USER'] = 'root'
-# app.config['MYSQL_PASSWORD'] = ''
-# app.config['MYSQL_DB'] = 'cs50'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'cs50'
 
-app.config['MYSQL_HOST'] = 'ec2-3-215-207-12.compute-1.amazonaws.com'
-app.config['MYSQL_USER'] = 'hqqhtuffmqljby'
-app.config['MYSQL_PASSWORD'] = '5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4'
-app.config['MYSQL_DB'] = 'daeased18jut3h'
-app.config['DATABASE_URL'] = 'postgres://hqqhtuffmqljby:5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4@ec2-3-215-207-12.compute-1.amazonaws.com:5432/daeased18jut3h'
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-# mysql = MySQL(app)
-result = urllib.parse.urlparse("postgres://hqqhtuffmqljby:5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4@ec2-3-215-207-12.compute-1.amazonaws.com:5432/daeased18jut3h")
-un = result.username
-pw = result.password
-db = result.path[1:]
-hn = result.hostname
-mysql = psycopg2.connect(user=un, password=pw, host=hn, database=db)
+mysql = MySQL(app)
+
+
+pg_conn = psycopg2.connect(
+    database="daeased18jut3h", user="hqqhtuffmqljby", password="5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4", host="ec2-3-215-207-12.compute-1.amazonaws.com", port="5432"
+)
+
+pg_cursor = pg_conn.cursor()
+
+
+@app.route('/populate')
+def populate():
+    sql = '''
+        CREATE TABLE `appliances` (
+        `app_id` int(11) NOT NULL,
+        `user_id` int(11) NOT NULL,
+        `name` varchar(255) NOT NULL,
+        `type` varchar(255) NOT NULL,
+        `power` float NOT NULL,
+        `duration` float NOT NULL,
+        `frequency` varchar(255) NOT NULL,
+        `daily_usage` float NOT NULL,
+        `monthly_usage` float NOT NULL,
+        `daily_cost` float NOT NULL,
+        `monthly_cost` float NOT NULL,
+        `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+        `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+        )'''
+
+    pg_cursor.execute(sql)
+
+    sql = '''
+        CREATE TABLE `users` (
+        `user_id` int(11) NOT NULL,
+        `name` varchar(255) NOT NULL,
+        `email` varchar(255) NOT NULL,
+        `password` varchar(255) NOT NULL,
+        `cost_limit` float NOT NULL DEFAULT 1000,
+        `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+        `updated_at` timestamp NULL DEFAULT current_timestamp()
+        )'''
+    pg_cursor.execute(sql)
 
 
 
@@ -238,7 +271,7 @@ def delete():
 def setlimit():
     cost_limit = request.form.get('cost_limit')
     cur = mysql.connection.cursor()
-    cur.execute("UPDATE users SET cost_limit = %s", [cost_limit])
+    cur.execute("UPDATE users SET cost_limit = %s WHERE user_id = %s", [cost_limit, session.get('user_id')])
     mysql.connection.commit()
     session['isLimitSet'] = 1
     return redirect('/')
@@ -291,33 +324,6 @@ def errorhandler(e):
 # Listen for errors
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
-
-
-@app.route('/populate')
-def populate():
-    con = psycopg2.connect()
-    cur = mysql.cursor()
-    cur.execute("CREATE TABLE `appliances` (`app_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `name` varchar(255) NOT NULL, `type` varchar(255) NOT NULL, `power` float NOT NULL, `duration` float NOT NULL, `frequency` varchar(255) NOT NULL, `daily_usage` float NOT NULL, `monthly_usage` float NOT NULL, `daily_cost` float NOT NULL, `monthly_cost` float NOT NULL, `created_at` timestamp NOT NULL DEFAULT current_timestamp(), `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp())")
-    cur.close()
-
-    con = psycopg2.connect()
-    cur = mysql.cursor()
-    cur.execute("INSERT INTO `appliances` (`app_id`, `user_id`, `name`, `type`, `power`, `duration`, `frequency`, `daily_usage`, `monthly_usage`, `daily_cost`, `monthly_cost`, `created_at`, `updated_at`) VALUES (1, 2, 'AC', 'Cooling', 4, 4, 'Daily', 0.02, 0.48, 0.18, 5.43, '2021-01-05 14:47:58', '2021-01-05 14:47:58'), (2, 2, 'Bulb', 'Lighting', 5, 8, 'Daily', 0.04, 1.2, 0.45, 13.58, '2021-01-05 14:49:18', '2021-01-05 14:49:18'), (4, 2, 'Computer', 'Entertainment', 10, 18, 'Daily', 0.18, 5.4, 2.04, 61.13, '2021-01-05 14:50:50', '2021-01-05 14:50:50'), (9, 2, 'Rice cooker', 'Kitchen Appliances', 100, 26, 'Daily', 2.6, 78, 29.43, 882.96, '2021-01-07 06:08:55', '2021-01-07 06:08:55'), (10, 2, 'Vacuum', 'Household Appliances', 120, 24, 'Daily', 2.88, 86.4, 32.6, 978.05, '2021-01-07 06:09:38', '2021-01-07 06:09:38'), (12, 2, 'TV', 'Entertainment', 12, 7, 'Daily', 0.08, 2.52, 0.91, 28.53, '2021-01-07 06:22:18', '2021-01-07 06:22:18'), (13, 2, 'TV', 'Entertainment', 12, 7, 'Daily', 0.08, 2.52, 0.91, 28.53, '2021-01-07 06:22:18', '2021-01-07 06:22:18'), (14, 2, 'Fan', 'Cooling', 12, 12, 'Weekly', 0.02, 0.58, 0.23, 6.57, '2021-01-07 06:22:32', '2021-01-07 06:22:32'), (15, 3, 'Smart TV', 'Entertainment', 10, 12, 'Daily', 0.12, 3.6, 1.36, 40.75, '2021-01-07 06:28:50', '2021-01-07 06:28:50');")
-    cur.close()
-
-    con = psycopg2.connect()
-    cur = mysql.cursor()
-    cur.execute("CREATE TABLE `users` (`user_id` int(11) NOT NULL, `name` varchar(255) NOT NULL, `email` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `cost_limit` float NOT NULL DEFAULT 1000, `created_at` timestamp NOT NULL DEFAULT current_timestamp(), `updated_at` timestamp NULL DEFAULT current_timestamp()) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;")
-    cur.close()
-
-    con = psycopg2.connect()
-    cur = mysql.cursor()
-    cur.execute("INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `cost_limit`, `created_at`, `updated_at`) VALUES (2, 'Arya Stark', 'arya@gmail.com', 'pbkdf2:sha256:150000$Tx8lc70a$9724dab7d3e076da0b0a0a87fc46c9534a8755443f70ce6c505f43db9aa75858', 1000, '2021-01-05 10:50:06', '2021-01-05 10:50:06'), (3, 'Gabriela Balisacan', 'gab@gmail.com', 'pbkdf2:sha256:150000$qXtLW8gr$cbdd3f0772fad9173053a145cd4c5690e36e44488685f7cfa9c9445c45b9f20b',1000, '2021-01-07 06:26:34', '2021-01-07 06:26:34');")
-    cur.close()
-    return redirect('/')
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
