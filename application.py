@@ -50,7 +50,7 @@ class Appliances(db.Model):
     type = db.Column(db.String(200))
     power = db.Column(db.Float)
     duration = db.Column(db.Float)
-    frequency = db.Column(db.Float)
+    frequency = db.Column(db.String(200))
     daily_usage = db.Column(db.Float)
     monthly_usage = db.Column(db.Float)
     daily_cost = db.Column(db.Float)
