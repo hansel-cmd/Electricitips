@@ -40,8 +40,8 @@ pg_cursor = pg_conn.cursor()
 def populate():
     sql = '''
         CREATE TABLE appliances (
-        app_id int(11) NOT NULL,
-        user_id` int(11) NOT NULL,
+        app_id int NOT NULL,
+        user_id` int NOT NULL,
         name` varchar(255) NOT NULL,
         type` varchar(255) NOT NULL,
         power` float NOT NULL,
@@ -59,7 +59,7 @@ def populate():
 
     sql = '''
         CREATE TABLE users (
-        user_id int(11) NOT NULL,
+        user_id int NOT NULL,
         name varchar(255) NOT NULL,
         email varchar(255) NOT NULL,
         password varchar(255) NOT NULL,
