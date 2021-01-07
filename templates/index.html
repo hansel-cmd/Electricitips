@@ -1,0 +1,405 @@
+<html>
+    <head>
+        <title>ElectriciTips | Log In</title>
+        <link rel="shortcut icon" href="static/img/icon.png">
+        <link rel="stylesheet" type="text/css" href="static/css/styleLogin.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+        <link href="https://allfont.net/allfont.css?fonts=cooperhewitt-light" rel="stylesheet"/>
+        <link href="https://allfont.net/allfont.css?fonts=cooperhewitt-semibold" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+<body>
+    <div id="navbar">
+        <img src="static/img/ElectriciTips.png" class="headerlogo">
+        <a style="cursor: pointer;" onclick="document.getElementById('id02').style.display='block'" class="margin-left"><i class="fa fa-fw fa-user"></i> Login</a>
+        <a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-sign-in"></i> Sign Up</a>
+    </div>
+    <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'; document.getElementById('form1').reset()" class="close" title="Close Sign Up">&times;</span>
+        <form id="form1" class="modal-content" action="/signup" method="POST">
+            <div class="container">
+                <h1 class="h2-title-modal">Sign Up</h1>
+                <p class="p-modal">Please fill in this form to create an account.</p>
+                <hr style="background-color: #fed430;">
+            <label for="email"><b>Email: </b></label>
+            <input type="email" placeholder="sample@email.com" name="email" required>
+      
+            <label for="name"><b>Full Name</b></label>
+            <input type="text" placeholder="John Doe" name="name" required>
+      
+            <label for="password"><b>Password</b></label>
+            <input type="password" name="password" required>
+                  
+            <p class="p-modal">By creating an account you agree to our <a href="#" style="color:#fed430">Terms & Privacy</a>.</p>
+      
+            <div class="clearfix">
+              <button type="button" onclick="document.getElementById('id01').style.display='none'
+              document.getElementById('form1').reset()" class="cancelbtn">Cancel</button>
+              <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div id="id02" class="modal">
+        <span onclick="document.getElementById('id02').style.display='none'; document.getElementById('form2').reset()" class="close" title="Close Sign Up">&times;</span>
+        <form id="form2" class="modal-content" action="/login" method="POST">
+            <div class="container">
+                <h1 class="h2-title-modal">Log In</h1>
+                <p class="p-modal">Enter Account Details.</p>
+                <hr style="background-color: #fed430;">
+            <label for="email"><b>Email: </b></label>
+            <input type="email" placeholder="sample@email.com" name="email" required>
+            <label for="password"><b>Pasword: </b></label>
+            <input type="password" name="password" required>                
+                  
+            <div class="clearfix">
+              <button type="button" onclick="document.getElementById('id02').style.display='none'; 
+              document.getElementById('form2').reset()" class="cancelbtn">Cancel</button>
+              <button type="submit" class="signupbtn">Log In</button>
+            </div>
+          </div>
+        </form>
+    </div>
+
+
+
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+    <div class="lightning">
+        <!-- <img src="static/img/1.png" style="position: relative; margin: 0%;"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 194 186" width="100%" height="100%">
+                <defs>
+                    <text id="text" x="50%" y="50%" font-family="Voltaire" font-size="15vh" font-weight="800" text-anchor="middle" alignment-baseline="middle">
+                        ElectriciTips
+                    </text>
+                </defs>
+                <filter id="glow">
+                    <feGaussianBlur id="glowBlur" stdDeviation="3.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                <filter id="shock">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="1" seed="2" result="noise" id="noise">
+          <animate attributeType="XML" attributeName="seed" from="2" to="120" dur="12s" repeatCount="indefinite"/>
+        </feTurbulence>
+                    <feMorphology id="morph1" in="SourceGraphic" operator="dilate" radius="10" result="morph1" />
+                    <feMorphology id="morph2" in="morph1" operator="dilate" radius="2" result="morph2" />
+                    <feComposite operator="out" in="morph2" in2="morph1" result="strokeText"/>
+                    <feDisplacementMap 
+                                 xChannelSelector="R" 
+                                 yChannelSelector="G" 
+                                 in="strokeText" 
+                                 in2="noise"
+                                 result="displacementMap"
+                                 color-interpolation-filters="sRGB"
+                                 scale="10" />
+                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="displacementMap"/>
+                    </feMerge>
+                </filter>
+          <filter id="shock2">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="1" seed="2" result="noise" id="noise">
+          <animate attributeType="XML" attributeName="seed" from="2" to="120" dur="10s" repeatCount="indefinite"/>
+        </feTurbulence>
+                    <feMorphology id="morph3" in="SourceGraphic" operator="dilate" radius="1" result="morph1" />
+                    <feMorphology id="morph4" in="morph1" operator="dilate" radius="1" result="morph2" />
+                    <feComposite operator="out" in="morph2" in2="morph1" result="strokeText"/>
+                    <feDisplacementMap 
+                                 xChannelSelector="R" 
+                                 yChannelSelector="G" 
+                                 in="strokeText" 
+                                 in2="noise"
+                                 result="displacementMap"
+                                 color-interpolation-filters="sRGB"
+                                 scale="10" />
+                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="displacementMap"/>
+                    </feMerge>
+                </filter>
+            <use xlink:href="#text" id="textShock" x="2" y="2" filter="url(#shock)" stroke="0" stroke-width="1" fill="#ccc"/>
+          <use xlink:href="#text" id="textShock" x="2" y="2" filter="url(#shock2)" stroke="0" stroke-width="1" fill="#f90"/>
+            <use xlink:href="#text" id="textFill" x="0" y="0" fill="white" />
+            <use xlink:href="#text" id="textGlow" x="0" y="0" filter="url(#glow)" stroke="#f90" stroke-width="0.1" fill="transparent"/>
+            </svg>
+    </div>
+   
+    
+    <div class="bg-2">
+        <div class="wrap">
+            <div class="wrap">
+                <h1 class="title">
+                    About Electricitips
+                </h1>
+            </div>
+            <div class="hidden-grid">
+                <div class="item-box">
+                  <div class="icon">
+                    <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                  </div>
+                  <h2>What is ElectriciTips?</h2>
+                  <p>A Web Application that records the rated power input of all appliances used in the household and provides an estimated monthly and daily electricity usage and cost. 
+                      
+                  </p>
+                </div>
+                <div class="item-box">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                    </div>
+                    <h2>What is its goal?</h2>
+                    <p>Aims to bridge the gap of the lack of tools for managing energy resources with an application that mainly features real-time measurement of energy consumption of appliances provided with estimated bill in the end of the month of usage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-1">
+        <div class="wrap">
+            <h1 class="title">
+                Concerns on Global Warming
+            </h1>
+            <div class="inline col2L content">
+                <h2 class="h2-title" style="color: #2C2D2C;">The Bigger Scope</h2>
+                <p style="color: #2C2D2C;" class="content1">Coal power plants emit huge amounts of  greenhouse gas that contribute to global warming.</p>
+            </div>
+            <img src="static/img/earth.png" class="inline col2S"/>
+        </div>
+        <div class="wrap">
+            <img src="static/img/house.png" class="inline col2L"/>
+            <div class="inline col2S content">
+                <h2 class="h2-title" style="text-align: left; color: #2C2D2C;">The Narrow Scope</h2>
+                <p style="color: #2C2D2C;">The increase of carbon emissions brought  about by increase of electricity demand by  households has led further to global  warming which results in climate change.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-3">
+        <div class="wrap" style="padding-top: 5%; padding-bottom: 5%;">
+            <h1 class="title" style="color: black;"></h1>
+            <div class="inline col2L content">
+                <div>
+                    <h2 class="h2-width-left">...Using ElectriciTips</h2>
+                </div>
+                <div class="flex">
+                    <div class="item-box">
+                        <div class="icon">
+                          <img class="img-icon bg-3-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                        </div>
+                        <h2 class="h2-width">Easy to Use.</h2>
+                        </p>
+                    </div>
+                    <div class="item-box">
+                        <div class="icon">
+                          <img class="img-icon bg-3-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                        </div>
+                        <h2 class="h2-width">Minimalistic and Light.</h2>
+                        </p>
+                    </div>
+                    <div class="item-box">
+                        <div class="icon">
+                          <img class="img-icon bg-3-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                        </div>
+                        <h2 class="h2-width">Accurate.</h2>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="inline col2S content">
+                <h2 class="h2-title bg-3-h2">What makes us different?</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="bg-5">
+        <div class="wrap">
+            <div class="wrap">
+                <h1 class="title">
+                    How does the app work?
+                </h1>
+
+                <h2>
+                    It's as easy as a few clicks...
+                </h2>
+            </div>
+            <div class="hidden-grid">
+                <div class="item-box-1">
+                  <div class="icon">
+                    <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                  </div>
+                  <p style="color: #fed430;">ElectriciTips records each power rating you enter and calculates its consumption based on the duration it is used.
+                  
+                  </p>
+                </div>
+                <div class="item-box-2">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                    </div>
+                    <p style="color: #fed430;">The electricity consumed in total is multiplied by the cost per kWh.
+                    </p>
+                </div>
+                <div class="item-box-3">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                    </div>
+                    <p style="color: #fed430;">The average daily  usage is used to  calculate your  estimated monthly  usage.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-4">
+        <div class="wrap">
+            <div class="wrap">
+                <h1 class="title">
+                    Features
+                </h1>
+            </div>
+            <div class="hidden-grid">
+                <div class="item-box-1">
+                  <div class="icon">
+                    <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                  </div>
+                  <h2 style="color: #2C2D2C;">A Real Helper</h2>
+                  <p class="para">Helps you take note  of your daily  electricity usage in  a single click.                     
+                  </p>
+                </div>
+                <div class="item-box-2">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                    </div>
+                    <h2 style="color: #fed430;">Intuitive</h2>
+                    <p style="color: #fed430;">Estimated  monthly usage  based on your  daily average  use.
+                    </p>
+                </div>
+                <div class="item-box-3">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                    </div>
+                    <h2 style="color: #2C2D2C;">Your Household Companion</h2>
+                    <p>Gives you tips on  how to optimize the  use of electricity in  your home.
+                    </p>
+                </div>
+                <div class="item-box-4">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                    </div>
+                    <h2  style="color: #fed430;">Smart</h2>
+                    <p style="color: #fed430;">Accurately records  the  power usage of
+                        specific devices  and appliances you  use daily.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+
+            <img src="static/img/ElectriciTips.png" class="footerlogo"/>
+            <p class="footer-links">
+                <a href="#" class="link-1">Log In</a>
+                <a href="#">Sign Up</a>
+            </p>
+
+            <p class="footer-company-name" style="color: #fed430;">ElectriciTips | Core-i5 © 2020</p>
+        </div>
+
+        <div class="footer-center">
+
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>719 M.L Quezon St. Cabancalan</span>Mandaue City, Cebu Philippines</p>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+63 927 393 9667</p>
+            </div>
+
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="#" style="color: #fed430">Support@ElectriciTips.com</a></p>
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <p class="footer-company-about">
+                <span>About the company</span>
+                Core-i5 envisions the future where machines do more and more work than people used to do,
+                while consuming less the natural resources available.
+            </p>
+
+            <div class="footer-icons">
+                <a href="https://www.facebook.com/Hansel.CESA" class="fb"><i class="fa fa-facebook"></i></a>
+                <a href="https://twitter.com/Hanseeell" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.instagram.com/haaanseeell/" class="insta"><i class="fa fa-instagram"></i></a>
+                <a href="https://github.com/hansel-cmd" class="github"><i class="fa fa-github"></i></a>
+
+            </div>
+
+        </div>
+
+    </footer>
+    <div class="footer" id="myFooter">
+        <a style="cursor: pointer;" onclick="document.getElementById('id02').style.display='block'">Log In</a>
+        <a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'">Sign Up</a>
+      </div>
+
+
+
+<script>
+    //Get the button:
+mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    mybutton.style.display = "none";
+    document.getElementById("navbar").style.top = "-500px";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+var modal = document.getElementById('id01');
+var modal1 = document.getElementById('id02');
+var form1 = document.getElementById('form1');
+var form2 = document.getElementById('form2');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal || event.target == modal1) {
+    modal.style.display = "none";
+    modal1.style.display = "none";
+    form1.reset();
+    form2.reset();
+  }
+}
+
+
+
+</script>
+
+</body>
+</html>
+
