@@ -41,10 +41,10 @@ def populate():
     sql = '''
         CREATE TABLE appliances (
         app_id int NOT NULL,
-        user_id` int NOT NULL,
-        name` varchar(255) NOT NULL,
-        type` varchar(255) NOT NULL,
-        power` float NOT NULL,
+        user_id int NOT NULL,
+        name varchar(255) NOT NULL,
+        type varchar(255) NOT NULL,
+        power float NOT NULL,
         duration float NOT NULL,
         frequency varchar(255) NOT NULL,
         daily_usage float NOT NULL,
