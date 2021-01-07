@@ -9,4 +9,4 @@ flask_mysqldb
 # functools
 # urllib.parse
 # os
-# flask_session
+flask_session
