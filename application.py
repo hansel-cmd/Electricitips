@@ -12,11 +12,16 @@ import urllib.parse
 app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'cs50'
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = ''
+# app.config['MYSQL_DB'] = 'cs50'
 
+app.config['MYSQL_HOST'] = 'ec2-3-215-207-12.compute-1.amazonaws.com'
+app.config['MYSQL_USER'] = 'hqqhtuffmqljby'
+app.config['MYSQL_PASSWORD'] = '5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4'
+app.config['MYSQL_DB'] = 'daeased18jut3h'
+app.config['DATABASE_URI'] = 'postgres://hqqhtuffmqljby:5cc09d4520f486d103b430375213b45f3892114d81e9e9ade28e4129eda13eb4@ec2-3-215-207-12.compute-1.amazonaws.com:5432/daeased18jut3h'
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
