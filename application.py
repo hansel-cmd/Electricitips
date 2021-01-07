@@ -38,8 +38,8 @@ pg_cursor = pg_conn.cursor()
 
 @app.route('/populate')
 def populate():
-    cursor.execute("DROP TABLE IF EXISTS appliances")
-    cursor.execute("DROP TABLE IF EXISTS users")
+    pg_cursor.execute("DROP TABLE IF EXISTS appliances")
+    pg_cursor.execute("DROP TABLE IF EXISTS users")
     sql = '''
         CREATE TABLE appliances (
         app_id int NOT NULL,
