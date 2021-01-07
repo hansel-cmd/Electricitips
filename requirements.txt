@@ -10,3 +10,4 @@ flask_mysqldb
 # urllib.parse
 # os
 flask_session
+psycopg2
