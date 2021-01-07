@@ -3,10 +3,10 @@ flask
 gunicorn
 flask-heroku
 flask_mysqldb
-tempfile
-werkzeug.exceptions
-werkzeug.security
-functools
-urllib.parse
-os
-flask_session
+# tempfile
+# werkzeug.exceptions
+# werkzeug.security
+# functools
+# urllib.parse
+# os
+# flask_session
