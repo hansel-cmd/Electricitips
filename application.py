@@ -284,11 +284,16 @@ def signup():
         email = request.form.get('email')
         name = request.form.get('name')
         password = request.form.get('password')
+
+
+       
+
+        pg_cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", [name, email, generate_password_hash(password)])
         
 
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, generate_password_hash(password)))
-        mysql.connection.commit()
+        # cur = mysql.connection.cursor()
+        # cur.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, generate_password_hash(password)))
+        # mysql.connection.commit()
         return redirect('/')
         
         
