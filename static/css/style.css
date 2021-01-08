@@ -39,7 +39,7 @@ body {
 	height: 100%;
 	font-family: "Helvetica";
 }
-#usagehelp {
+#usagehelp, #newshelp {
 	padding-top: 20px;
 	padding-bottom: 20px;
 	background-color: #28a745;
@@ -879,6 +879,14 @@ input, select {
 		height: 2.5%;
 		margin-top: 10%;
 	}
+	#acc {
+		border-radius: 5px;
+		background-color: #a9693f;
+		padding: 20px;
+		margin: 0 auto !important;
+		width: 90% !important;
+		box-sizing: border-box;
+	}
 }
 @media all and (max-height: 550px) {
 	#s1, #as1 {
@@ -908,5 +916,12 @@ input, select {
 	}
 	.titleimg {
 		height: 100px;
+	}
+	#acc {
+		border-radius: 5px;
+	background-color: #a9693f;
+	padding: 20px;
+	margin: 0 2% !important;
+	width: 50% !important;
 	}
 }

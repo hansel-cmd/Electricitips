@@ -225,7 +225,8 @@ def home():
     return render_template('home.html', user = user, wasSet = wasSet, 
                             apps = apps, length = length, d_cost = daily_cost, m_cost = monthly_cost, 
                             d_usage = daily_usage, m_usage = monthly_usage, error = error, pmt1 = pmt1, 
-                            pmt2 = pmt2, pmt3 = pmt3, pmt4 = pmt4, pmt5 = pmt5, actual_limit = actual_limit)
+                            pmt2 = pmt2, pmt3 = pmt3, pmt4 = pmt4, pmt5 = pmt5, actual_limit = actual_limit,
+                            message = session.get('no_app_type'), msg = session.get('no_frequency'))
 
 
 @app.route('/add', methods=["POST"])
@@ -237,8 +238,15 @@ def add():
     power = request.form.get('power')
     user_id = session.get('user_id')
 
-    if app_type is None or frequency is None:
+    if app_type is None:
+        session['no_app_type'] = 1
         return redirect('/')
+    session['no_app_type'] = 0
+
+    if frequency is None:
+        session['no_frequency'] = 1
+        return redirect('/')
+    session['no_frequency'] = 0
 
     if frequency == "Daily":
         factor = 30
