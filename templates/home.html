@@ -9,12 +9,17 @@
 	
 </head>
 <body>
-<div class="title" id="title">
-	<img class="titleimg" src="static/img/ElectriciTips.png">
-	<div class="loadbar">
-		<div class="progressload"></div>
-	</div>
-</div>
+
+{% if msg != 1 and message != 1 and err != 1 %}
+	{% if first_time == 1 %}
+		<div class="title" id="title">
+			<img class="titleimg" src="static/img/ElectriciTips.png">
+			<div class="loadbar">
+				<div class="progressload"></div>
+			</div>
+		</div>
+	{% endif %}
+{% endif %}
 
 <div class="overflow">
 
@@ -435,11 +440,23 @@
 				  <label for="email">Email</label>
 				  <input type="email" id="email" name="email" value='{{ user[0][2] }}'required>
 
-				  <label for="password">New Password</label>
-				  <input type="password" id="password" name="password" required>
+				  {% if err == 1 %}
+					<div style="background: white;">
+						<p style="color: #d9534f; font-weight: bold;">Password did not match.</p>
+					</div>
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" required style="border: 2px solid #d9534f">
 
-				  <label for="confirm">Confirm Password</label>
-				  <input type="password" id="confirm" name="confirm" required>
+					<label for="confirm">Confirm Password</label>
+					<input type="password" id="confirm" name="confirm" required style="border: 2px solid #d9534f">
+				  {% else %}
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" required>
+
+					<label for="confirm">Confirm Password</label>
+					<input type="password" id="confirm" name="confirm" required>
+
+				  {% endif %}
 				
 				  <input type="submit" value="Update Info">
 				</form>
@@ -919,6 +936,10 @@ function writet5() {
 {% if msg == 1 or message == 1 %}
 	<script>
 		nav1()
+	</script>
+{% elif err == 1 %}
+	<script>
+		nav4()
 	</script>
 {% else %}
 	<script>

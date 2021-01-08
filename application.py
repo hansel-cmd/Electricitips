@@ -130,6 +130,7 @@ def login():
         if len(x) > 0:
             session['isLimitSet'] = 1
         # Redirect user to home page
+        session['first_time'] = 1
         return redirect('/home')
 
 
@@ -144,6 +145,7 @@ def index():
 @app.route('/home')
 @login_required
 def home():
+
     pg_cursor.execute("SELECT * from users WHERE user_id = %s", [session.get('user_id')])
     user = pg_cursor.fetchall()
 
@@ -231,6 +233,7 @@ def home():
 
 @app.route('/add', methods=["POST"])
 def add():
+    session['first_time'] = 0
     name = request.form.get('name')
     app_type = request.form.get('type')
     duration = request.form.get('duration')
@@ -273,6 +276,7 @@ def add():
 
 @app.route('/delete', methods=["POST"])
 def delete():
+    session['first_time'] = 0
     app_id = request.form.get('app_id')
 
     pg_cursor.execute("DELETE FROM appliances WHERE app_id = %s", [app_id])
@@ -282,6 +286,7 @@ def delete():
 
 @app.route('/setlimit', methods=["POST"])
 def setlimit():
+    session['first_time'] = 0
     cost_limit = request.form.get('cost_limit')
     pg_cursor.execute("UPDATE users SET cost_limit = %s WHERE user_id = %s", [cost_limit, session.get('user_id')])
     pg_conn.commit()
@@ -322,6 +327,7 @@ def logout():
 
 @app.route('/update', methods=["POST"])
 def update():
+    session['first_time'] = 0
     name = request.form.get('name')
     email = request.form.get('email')
     password = request.form.get('password')
