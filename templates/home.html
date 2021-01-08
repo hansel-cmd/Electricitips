@@ -1,844 +1,462 @@
 <html>
-<head>
-    <title>Electricitips</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/style.css" />
-	<link rel="shortcut icon" href="static/img/icon.png">
-    <meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-</head>
+    <head>
+        <title>ElectriciTips | Log In</title>
+        <link rel="shortcut icon" href="static/img/icon.png">
+        <link rel="stylesheet" type="text/css" href="static/css/styleLogin.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+        <link href="https://allfont.net/allfont.css?fonts=cooperhewitt-light" rel="stylesheet"/>
+        <link href="https://allfont.net/allfont.css?fonts=cooperhewitt-semibold" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
 <body>
-<!-- <div class="title" id="title">
-	<img class="titleimg" src="static/img/ElectriciTips.png">
-	<div class="loadbar">
-		<div class="progressload"></div>
-	</div>
-</div> -->
+    <div id="navbar">
+        <img src="static/img/ElectriciTips.png" class="headerlogo">
+        <a style="cursor: pointer;" onclick="document.getElementById('id02').style.display='block'" class="margin-left"><i class="fa fa-fw fa-user"></i> Login</a>
+        <a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-sign-in"></i> Sign Up</a>
+    </div>
+    
 
-<div class="overflow">
+    {% if message == 1 %}
+    <div id="id01" class="modal" style="display: block;">
+        <span onclick="document.getElementById('id01').style.display='none'; document.getElementById('form1').reset()" class="close" title="Close Sign Up">&times;</span>
+        <form id="form1" class="modal-content" action="/signup" method="POST">
+            <div class="container">
+                <h1 class="h2-title-modal">Sign Up</h1>
+                <p class="p-modal">Please fill in this form to create an account.</p>
+                <hr style="background-color: #fed430;">
+            <label for="email"><b>Email: <span style="color: #d9534f; ">Email is already taken.</span></b></label>
+            <input type="email" placeholder="sample@email.com" name="email" required style="border: 4px solid #d9534f;">
+      
+            <label for="name"><b>Full Name</b></label>
+            <input type="text" placeholder="John Doe" name="name" required>
+      
+            <label for="password"><b>Password</b></label>
+            <input type="password" name="password" required>
+                  
+            <p class="p-modal">By creating an account you agree to our <a href="#" style="color:#fed430">Terms & Privacy</a>.</p>
+      
+            <div class="clearfix">
+              <button type="button" onclick="document.getElementById('id01').style.display='none'
+              document.getElementById('form1').reset()" class="cancelbtn">Cancel</button>
+              <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+          </div>
+        </form>
+    </div>
+    {% else %}
+    <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'; document.getElementById('form1').reset()" class="close" title="Close Sign Up">&times;</span>
+        <form id="form1" class="modal-content" action="/signup" method="POST">
+            <div class="container">
+                <h1 class="h2-title-modal">Sign Up</h1>
+                <p class="p-modal">Please fill in this form to create an account.</p>
+                <hr style="background-color: #fed430;">
+            
+            <label for="email"><b>Email: </b></label>
+            <input type="email" placeholder="sample@email.com" name="email" required>
+      
+            <label for="name"><b>Full Name</b></label>
+            <input type="text" placeholder="John Doe" name="name" required>
+      
+            <label for="password"><b>Password</b></label>
+            <input type="password" name="password" required>
+                  
+            <p class="p-modal">By creating an account you agree to our <a href="#" style="color:#fed430">Terms & Privacy</a>.</p>
+      
+            <div class="clearfix">
+              <button type="button" onclick="document.getElementById('id01').style.display='none'
+              document.getElementById('form1').reset()" class="cancelbtn">Cancel</button>
+              <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+          </div>
+        </form>
+    </div>
+    {% endif %}
 
-	<img class="imghead" id="s1" onclick="nav1()" src="static/img/newitems.png">
-    <img class="imghead" id="s2" onclick="nav2()" src="static/img/newusage.png">
-    <img class="imghead" id="s3" onclick="nav3()" src="static/img/newnews.png">
-    <img class="imghead" id="s4" onclick="nav4()" src="static/img/usericon.png">
-    <img class="imgactive" id="as1" src="static/img/new on click items.png">
-    <img class="imgactive" id="as2" src="static/img/new on click usage.png">
-    <img class="imgactive" id="as3" src="static/img/new on click news.png">
-    <img class="imgactive" id="as4" src="static/img/usericon1.png">
-    <div id="header">
-        <img class="headerlogo" src="static/img/ElectriciTips.png" onclick="appearads()"/>
+    {% if msg == 1 %}
+    <div id="id02" class="modal" style="display: block;">
+        <span onclick="document.getElementById('id02').style.display='none'; document.getElementById('form2').reset()" class="close" title="Close Sign Up">&times;</span>
+        <form id="form2" class="modal-content" action="/login" method="POST">
+            <div class="container">
+                <h1 class="h2-title-modal">Log In</h1>
+                <p class="p-modal">Enter Account Details.</p>
+                <hr style="background-color: #fed430;">
+            <label><span style="color: #d9534f; font-weight: bold; font-size: 16pt;">Incorrect Credentials.</span></label><br/>
+            <label for="email"><b>Email: </b></label>
+            <input type="email" placeholder="sample@email.com" name="email" required>
+            <label for="password"><b>Pasword: </b></label>
+            <input type="password" name="password" required>                
+                  
+            <div class="clearfix">
+              <button type="button" onclick="document.getElementById('id02').style.display='none'; 
+              document.getElementById('form2').reset()" class="cancelbtn">Cancel</button>
+              <button type="submit" class="signupbtn">Log In</button>
+            </div>
+          </div>
+        </form>
+    </div>
+    {% else %}
+    <div id="id02" class="modal">
+        <span onclick="document.getElementById('id02').style.display='none'; document.getElementById('form2').reset()" class="close" title="Close Sign Up">&times;</span>
+        <form id="form2" class="modal-content" action="/login" method="POST">
+            <div class="container">
+                <h1 class="h2-title-modal">Log In</h1>
+                <p class="p-modal">Enter Account Details.</p>
+                <hr style="background-color: #fed430;">
+            <label for="email"><b>Email: </b></label>
+            <input type="email" placeholder="sample@email.com" name="email" required>
+            <label for="password"><b>Pasword: </b></label>
+            <input type="password" name="password" required>                
+                  
+            <div class="clearfix">
+              <button type="button" onclick="document.getElementById('id02').style.display='none'; 
+              document.getElementById('form2').reset()" class="cancelbtn">Cancel</button>
+              <button type="submit" class="signupbtn">Log In</button>
+            </div>
+          </div>
+        </form>
+    </div>
+    {% endif %}
+
+
+
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+    <div class="lightning">
+        <!-- <img src="static/img/1.png" style="position: relative; margin: 0%;"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 194 186" width="100%" height="100%">
+                <defs>
+                    <text id="text" x="50%" y="50%" font-family="Voltaire" font-size="15vh" font-weight="800" text-anchor="middle" alignment-baseline="middle">
+                        ElectriciTips
+                    </text>
+                </defs>
+                <filter id="glow">
+                    <feGaussianBlur id="glowBlur" stdDeviation="3.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                <filter id="shock">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="1" seed="2" result="noise" id="noise">
+          <animate attributeType="XML" attributeName="seed" from="2" to="120" dur="12s" repeatCount="indefinite"/>
+        </feTurbulence>
+                    <feMorphology id="morph1" in="SourceGraphic" operator="dilate" radius="10" result="morph1" />
+                    <feMorphology id="morph2" in="morph1" operator="dilate" radius="2" result="morph2" />
+                    <feComposite operator="out" in="morph2" in2="morph1" result="strokeText"/>
+                    <feDisplacementMap 
+                                 xChannelSelector="R" 
+                                 yChannelSelector="G" 
+                                 in="strokeText" 
+                                 in2="noise"
+                                 result="displacementMap"
+                                 color-interpolation-filters="sRGB"
+                                 scale="10" />
+                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="displacementMap"/>
+                    </feMerge>
+                </filter>
+          <filter id="shock2">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="1" seed="2" result="noise" id="noise">
+          <animate attributeType="XML" attributeName="seed" from="2" to="120" dur="10s" repeatCount="indefinite"/>
+        </feTurbulence>
+                    <feMorphology id="morph3" in="SourceGraphic" operator="dilate" radius="1" result="morph1" />
+                    <feMorphology id="morph4" in="morph1" operator="dilate" radius="1" result="morph2" />
+                    <feComposite operator="out" in="morph2" in2="morph1" result="strokeText"/>
+                    <feDisplacementMap 
+                                 xChannelSelector="R" 
+                                 yChannelSelector="G" 
+                                 in="strokeText" 
+                                 in2="noise"
+                                 result="displacementMap"
+                                 color-interpolation-filters="sRGB"
+                                 scale="10" />
+                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="displacementMap"/>
+                    </feMerge>
+                </filter>
+            <use xlink:href="#text" id="textShock" x="2" y="2" filter="url(#shock)" stroke="0" stroke-width="1" fill="#ccc"/>
+          <use xlink:href="#text" id="textShock" x="2" y="2" filter="url(#shock2)" stroke="0" stroke-width="1" fill="#f90"/>
+            <use xlink:href="#text" id="textFill" x="0" y="0" fill="white" />
+            <use xlink:href="#text" id="textGlow" x="0" y="0" filter="url(#glow)" stroke="#f90" stroke-width="0.1" fill="transparent"/>
+            </svg>
+    </div>
+   
+    
+    <div class="bg-2">
+        <div class="wrap">
+            <div class="wrap">
+                <h1 class="title">
+                    About Electricitips
+                </h1>
+            </div>
+            <div class="hidden-grid">
+                <div class="item-box">
+                  <div class="icon">
+                    <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                  </div>
+                  <h2>What is ElectriciTips?</h2>
+                  <p>A Web Application that records the rated power input of all appliances used in the household and provides an estimated monthly and daily electricity usage and cost. 
+                      
+                  </p>
+                </div>
+                <div class="item-box">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                    </div>
+                    <h2>What is its goal?</h2>
+                    <p>Aims to bridge the gap of the lack of tools for managing energy resources with an application that mainly features real-time measurement of energy consumption of appliances provided with estimated bill in the end of the month of usage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-1">
+        <div class="wrap">
+            <h1 class="title">
+                Concerns on Global Warming
+            </h1>
+            <div class="inline col2L content">
+                <h2 class="h2-title" style="color: #2C2D2C;">The Bigger Scope</h2>
+                <p style="color: #2C2D2C;" class="content1">Coal power plants emit huge amounts of  greenhouse gas that contribute to global warming.</p>
+            </div>
+            <img src="static/img/earth.png" class="inline col2S"/>
+        </div>
+        <div class="wrap">
+            <img src="static/img/house.png" class="inline col2L"/>
+            <div class="inline col2S content">
+                <h2 class="h2-title" style="text-align: left; color: #2C2D2C;">The Narrow Scope</h2>
+                <p style="color: #2C2D2C;">The increase of carbon emissions brought  about by increase of electricity demand by  households has led further to global  warming which results in climate change.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-3">
+        <div class="wrap" style="padding-top: 5%; padding-bottom: 5%;">
+            <h1 class="title" style="color: black;"></h1>
+            <div class="inline col2L content">
+                <div>
+                    <h2 class="h2-width-left">...Using ElectriciTips</h2>
+                </div>
+                <div class="flex">
+                    <div class="item-box">
+                        <div class="icon">
+                          <img class="img-icon bg-3-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                        </div>
+                        <h2 class="h2-width">Easy to Use.</h2>
+                        </p>
+                    </div>
+                    <div class="item-box">
+                        <div class="icon">
+                          <img class="img-icon bg-3-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                        </div>
+                        <h2 class="h2-width">Minimalistic and Light.</h2>
+                        </p>
+                    </div>
+                    <div class="item-box">
+                        <div class="icon">
+                          <img class="img-icon bg-3-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                        </div>
+                        <h2 class="h2-width">Accurate.</h2>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="inline col2S content">
+                <h2 class="h2-title bg-3-h2">What makes us different?</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="bg-5">
+        <div class="wrap">
+            <div class="wrap">
+                <h1 class="title">
+                    How does the app work?
+                </h1>
+
+                <h2>
+                    It's as easy as a few clicks...
+                </h2>
+            </div>
+            <div class="hidden-grid">
+                <div class="item-box-1">
+                  <div class="icon">
+                    <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                  </div>
+                  <p style="color: #fed430;">ElectriciTips records each power rating you enter and calculates its consumption based on the duration it is used.
+                  
+                  </p>
+                </div>
+                <div class="item-box-2">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                    </div>
+                    <p style="color: #fed430;">The electricity consumed in total is multiplied by the cost per kWh.
+                    </p>
+                </div>
+                <div class="item-box-3">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                    </div>
+                    <p style="color: #fed430;">The average daily  usage is used to  calculate your  estimated monthly  usage.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-4">
+        <div class="wrap">
+            <div class="wrap">
+                <h1 class="title">
+                    Features
+                </h1>
+            </div>
+            <div class="hidden-grid">
+                <div class="item-box-1">
+                  <div class="icon">
+                    <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                  </div>
+                  <h2 style="color: #2C2D2C;">A Real Helper</h2>
+                  <p class="para">Helps you take note  of your daily  electricity usage in  a single click.                     
+                  </p>
+                </div>
+                <div class="item-box-2">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                    </div>
+                    <h2 style="color: #fed430;">Intuitive</h2>
+                    <p style="color: #fed430;">Estimated  monthly usage  based on your  daily average  use.
+                    </p>
+                </div>
+                <div class="item-box-3">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/icon.png" />
+                    </div>
+                    <h2 style="color: #2C2D2C;">Your Household Companion</h2>
+                    <p>Gives you tips on  how to optimize the  use of electricity in  your home.
+                    </p>
+                </div>
+                <div class="item-box-4">
+                    <div class="icon">
+                      <img class="img-icon" alt="what-is-electricitips" src="static/img/citips.png" />
+                    </div>
+                    <h2  style="color: #fed430;">Smart</h2>
+                    <p style="color: #fed430;">Accurately records  the  power usage of
+                        specific devices  and appliances you  use daily.
+                        </p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="titlepage" id="sliding">
-        
-        <!-- CONTAINER 1 -->
-        <div class="container" id="c1">
-            <div class="placeholder"></div>
-            <div class="subhead" id="itemshead">
-                    <img class="yellowhelp" src="static/img/yellow help icon.png" onclick="itemshelp()"/>
-                    <p>Items</p>
-            </div>
-        
-            <div id="itemshelp">
-                <span class="itemshelp-close" onclick="this.parentElement.style.width='0';">&times;</span> 
-                <p>Click the <strong>&plus;</strong> button below to add an item.</p>
-                <p>Enter a unique name for a certain appliance.</p>
-                <p>Choose the type of appliance/electronic. </p>
-                <p>Type the power rating found on the appliance.</p>
-                <p>Input the number of hours used. </p>
-                <p>Select the frequency of usage.</p>
-            </div>
-        
-            <div class="adddiv" onclick="openNav()">
-                <a id="addbutton">&plus;</a>
-            </div>
-            <!-- <div id="tipsss" style="display: block;">
-                <a href="javascript:void(0)" class="closebtn" onclick="closetip()">&times;</a>
-                <img class="kanicitips" src="static/img/mascot.png">
-                <p id="tiptitle">Save Electricity</p>
-                <p id="tipsub">Saving Electricity goes a long way in reducing our carbon footprint and save mother earth!</p>
-            </div> -->
-            <div id="listofitems">
+    <footer class="footer-distributed">
 
-				{% for app in apps: %}
-				<div id="{{ app.0 }}">
-					
-					<img id="legend" src="static/img/{{ app.3 }}.png">
-					<img id="citips" src="static/img/citips.png" onclick="showTips('{{ app.3 }}'.toLowerCase().split(' ').join('-'))">
-					<p>{{app.2 }}</p>
-					<p>{{app.3 }}</p>
-					<br>
-					<p>Power Rating: {{ app.4 }}W</p>
-					<p>Daily Usage: {{app.7 }}kWh</p>
-					<p>Monthly Usage: {{ app.8 }}kWh</p>
-					<p>Daily Cost: P {{ app.9 }}</p>
-					<p>Monthly Cost: P {{ app.10 }}</p>
-					<form action="/delete" method="POST" id="deleteForm{{app.0}}">
-						<input type="hidden" name="app_id" value="{{ app.0 }}">
-						<a onclick="document.querySelector('#deleteForm{{app.0}}').submit()">x</a></div>
-					</form>
-				{% endfor %}
+        <div class="footer-left">
 
-				{% if length <= 0 %}
-					<div id="defaultitem" onclick="openNav()">
-						<p></p>
-						<p>No items added. Add one now.</p>
-					</div>
-				{% endif %}
-			</div>
+            <img src="static/img/ElectriciTips.png" class="footerlogo"/>
+            <p class="footer-links">
+                <a href="#" class="link-1">Log In</a>
+                <a href="#">Sign Up</a>
+            </p>
 
-			<div id="entertainment" class="tipsss">
-				<a href="javascript:void(0)" class="closebtn" onclick="closetip('entertainment')">×</a>
-				<img class="kanicitips" src="static/img/mascot.png">
-				<p id="tiptitle">Use an LED television</p>
-				<p id="tipsub">Older LCD TVs used cold cathode fluorescent lamps or CCFLs to provide backlighting, whereas LED-backlit LCD TVs used an array of smaller, more efficient light-emitting diodes or LEDs to illuminate the screen.</p>
-			</div>
-
-			<div id="lighting" class="tipsss">
-				<a href="javascript:void(0)" class="closebtn" onclick="closetip('lighting')">×</a>
-				<img class="kanicitips" src="static/img/mascot.png">
-				<p id="tiptitle">Consider task lighting at home instead of using ambient lighting</p>
-				<p id="tipsub">Place floor lamps or table lamps in a corner, as light will reflect from the wall surfaces, increasing the luminance in the area.</p>
-			</div>
-			
-			<div id="cooling" class="tipsss">
-				<a href="javascript:void(0)" class="closebtn" onclick="closetip('cooling')">×</a>
-				<img class="kanicitips" src="static/img/mascot.png">
-				<p id="tiptitle">Keep the AC Lower at Night</p>
-				<p id="tipsub">During the night you do not require the same level of conscious cool. Try turning your AC down so it is running less during your sleep hours or, if your unit has one, utilize the Sleep Mode which lowers the output on a timer.</p>
-			</div>
-
-			<div id="kitchen-appliances" class="tipsss">
-				<a href="javascript:void(0)" class="closebtn" onclick="closetip('kitchen-appliances')">×</a>
-				<img class="kanicitips" src="static/img/mascot.png">
-				<p id="tiptitle">Defrost your fridge and freezer</p>
-				<p id="tipsub">Defrost at least every 6 months to ensure it runs efficiently. There should be less than 5mm of frost build up.</p>
-			</div>
-
-			<div id="household-appliances" class="tipsss">
-				<a href="javascript:void(0)" class="closebtn" onclick="closetip('household-appliances')">×</a>
-				<img class="kanicitips" src="static/img/mascot.png">
-				<p id="tiptitle">Use fabric softener to soften your clothes to reduce the amount of time spent on ironing.</p>
-				<p id="tipsub">As a rule of thumb, only iron clothes that are not made of wrinkle-resistant fabric like silk and polyester</p>
-			</div>
-
-            <div id="sideadd">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <!--<img class="yellowhelp" id="yhsa" src="static/img/yellow help icon.png" />-->
-				<form method="POST" action="add">
-					<div class="enterinput">
-						<p>Enter appliance name</p>            
-						<input type="text" id="name" placeholder="Name" name="name" required>
-						<p>Enter appliance type</p>
-						<select id="type" name="type" required>
-							<option disabled selected>Type</option>
-							<option>Entertainment</option>
-							<option>Lighting</option>
-							<option>Cooling</option>
-							<option>Kitchen Appliances</option>
-							<option>Household Appliances</option>
-						</select>
-						<p>Enter Power Rating</p>
-						<input type="number" id="power" placeholder="Power Rating" name="power" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
-						<p>Enter Duration (Hours)</p>
-						<input type="number" id="duration" placeholder="Duration" name="duration" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
-						<p>Enter Frequency</p>
-						<select id="frequency" name="frequency" required>
-							<option disabled selected>Frequency</option>
-							<option>Daily</option>
-							<option>Weekly</option>
-							<option>Monthly</option>
-						</select><br /><br />
-						<button class="sidebutton">Add Item</button>                        
-                	</div>
-				</form>                
-				<div class="placeholderfoot"></div>
-            </div>
-		</div>
-		
-
-        <!-- CONTAINER 2 -->
-        <div class="container" id="c2">
-            <div class="placeholder"></div>
-            <div class="subhead" id="homehead">
-                <img class="yellowhelp" src="static/img/yellow help icon.png" onclick="usagehelp()"/>
-				
-				{% if not session.get('isLimitSet') %}
-					<button id="limitbutton" onclick="setLimit()">Set Limit</button>
-				{% else %}
-				<button id="limitbutton" onclick="setLimit()">Edit Limit</button>
-				{% endif %}
-                <p>Usage</p>
-			</div>
-			
-            <div id="usagehelp">
-                <span class="itemshelp-close" onclick="this.parentElement.style.width='0';">&times;</span> 
-                <p>Add item to show estimated monthly and daily cost and usage</p>
-                 <p>Set cost limit in Pesos.</p>
-			</div>
-			
-            <div id="divprompt">
-                <a href="javascript:void(0)" id="closebtnset" onclick="closeSet()">&times;</a>
-				<p>Set Monthly Cost Limit</p>
-				<form action="/setlimit" method="POST">
-					{% if not session.get('isLimitSet') %}
-						<input type="number" id="costlimit" name="cost_limit" placeholder="1000.00">
-					{% else %}
-						<input type="number" id="costlimit" name="cost_limit" value="{{ user[0][4] }}">
-					{% endif %}
-					<button id="set" type="submit">Set</button>
-				</form>
-			</div>
-
-			{% if error %}
-				<div id="divprompt" style="display: block; width: 92%; height: 10%; opacity: 1; margin: 2%; padding: 2%; background-color: #fe5e5e;">
-					<p style="color: white;">Your Electricity Usage has exceeded set limit!!!</p>
-				</div>
-			{% endif %}
-
-            <div class="stats" id="dku">
-                <p class="statstitle">Daily kWh Usage</p>
-                <img class="statsimg" src="static/img/daily usage.png" />
-				{% if d_usage == 0 %}
-					<p class="italic" id="dtotal">No Item Added</p>
-				{% else %}
-					<p class="italic" id="dtotal">{{ d_usage }} kWh</p>
-				{% endif %}
-				
-            </div>
-            <div class="stats" id="mku">
-                <p class="statstitle">Monthly kWh Usage</p>
-                <img class="statsimg" src="static/img/monthly usage.png" />
-                {% if m_usage == 0 %}
-					<p class="italic" id="dtotal">No Item Added</p>
-				{% else %}
-					<p class="italic" id="dtotal">{{ m_usage }} kWh</p>
-				{% endif %}
-            </div>
-            <div class="stats" id="dec">
-                <p class="statstitle">Daily Electricity Cost</p>
-                <img class="statsimg" src="static/img/daily payment.png" />
-                {% if d_cost == 0 %}
-					<p class="italic" id="dtotal">No Item Added</p>
-				{% else %}
-					<p class="italic" id="dtotal">Php {{ d_cost }}</p>
-				{% endif %}
-            </div>
-            <div class="stats" id="mec">
-                <p class="statstitle">Monthly Electricity Cost</p>
-                <img class="statsimg" src="static/img/monthly payment.png" />
-				{% if m_cost == 0 %}
-					<p class="italic" id="dtotal">No Item Added</p>
-				{% else %}
-					<p class="italic" id="mcosttotal">Php {{ m_cost }}</p>
-				{% endif %}
-				
-            </div>
-            
-            <p class="graphtitle">Usage Limit</p>
-			<p id="mt1" style="display: none;">{{ pmt1 }}</p>
-			<p id="mt2" style="display: none;">{{ pmt2 }}</p>
-			<p id="mt3" style="display: none;">{{ pmt3 }}</p>
-			<p id="mt4" style="display: none;">{{ pmt4 }}</p>
-			<p id="mt5" style="display: none;">{{ pmt5 }}</p>
-			<p id="x" style="display: none;">{{ actual_limit }}</p>
-            <div id="kwhsetlimit">
-                <div id="actuallimit">
-                    <div class="t1" id="mmt1"></div>
-                    <div class="t2" id="mmt2"></div>
-                    <div class="t3" id="mmt3"></div>
-                    <div class="t4" id="mmt4"></div>
-                    <div class="t5" id="mmt5"></div>
-                </div>
-			</div>
-			<script>
-				s1 = document.querySelector('#mt1').innerHTML
-				s2 = document.querySelector('#mt2').innerHTML
-				s3 = document.querySelector('#mt3').innerHTML
-				s4 = document.querySelector('#mt4').innerHTML
-				s5 = document.querySelector('#mt5').innerHTML
-
-				console.log(document.querySelector("#mmt1"))
-				document.querySelector('#mmt1').style.width = s1
-				document.querySelector('#mmt2').style.width = s2
-				document.querySelector('#mmt3').style.width = s3
-				document.querySelector('#mmt4').style.width = s4
-				document.querySelector('#mmt5').style.width = s5
-
-				x = document.querySelector('#x').innerHTML
-				document.querySelector('#actuallimit').style.width = x
-				
-			</script>
-            <ul class="legend">
-                <li><div id="li1"></div>Entertainment</li>
-                <li><div id="li2"></div>Lighting</li>
-                <li><div id="li3"></div>Cooling</li>
-                <li><div id="li4"></div>Kitchen Appliances</li>
-                <li><div id="li5"></div>Household Appliances</li>
-            </ul>
-            <div class="placeholderfoot"></div>
+            <p class="footer-company-name" style="color: #fed430;">ElectriciTips | Core-i5 © 2020</p>
         </div>
 
-        <!-- CONTAINER 3 -->
-        <div class="container" id="c3">
-            <div class="placeholder"></div>
-            <div class="subhead" id="newshead">
-                <img class="yellowhelp" src="static/img/yellow help icon.png" onclick="newshelp()"/>
-                <p>News</p>
-            </div>
-            <div class="newsdiv">
-                <div class="newsimgdiv">
-                    <img class="newsimg" src="static/img/news1.jpg" />
-                </div>
-                <div class="newspdiv">
-                    <p class="comtitle">Rotational Brownouts March 29, 2045</p>
-                    <p class="comdes">VECO announces rotational brownouts in the barangays of Centro, Maguikay, and Tipolo due to wire repairs. Power outage will begin at 8:00 AM and will end at 3:00 PM</p>
-                    <p class="readmore">Read more &#8594;</p>
-                </div>
-            </div>
-            <div class="newsdiv">
-                <div class="newsimgdiv">
-                    <img class="newsimg" src="static/img/news2.jpg" />
-                </div>
-                <div class="newspdiv">
-                    <p class="comtitle">Cost per kiloWatt hour reduced</p>
-                    <p class="comdes">Due to the new solar power plant built somewhere nearby, the cost per kiloWatt hour wil be reduced from P 7.00 to P 4.00. Monthly electricity bills are expected to decrease by more than half.</p>
-                    <p class="readmore">Read more &#8594;</p>
-                </div>
-            </div>
-            <div class="newsdiv">
-                <div class="newsimgdiv">
-                    <img class="newsimg" src="static/img/news3.jpg" />
-                </div>
-                <div class="newspdiv">
-                    <p class="comtitle">Montly Bill Alert</p>
-                    <p class="comdes">Your total monthly bill for the month of February is P 1,465.98. You can pay in select stores, 7-eleven, Bayad Center, or directly in this app. Our main office is located at cebu somewhere.</p>
-                    <p class="readmore">Read more &#8594;</p>
-                </div>
-            </div>
-            <div class="newsdiv">
-                <div class="newsimgdiv">
-                    <img class="newsimg" src="static/img/news4.jpg" />
-                </div>
-                <div class="newspdiv">
-                    <p class="comtitle">Prepare for Typhoon Kidlat</p>
-                    <p class="comdes">Typhoon Kidlat is expected to enter PAR on 18:00 March 28, 2045. Strong winds and thunderstorms may cause power outages. Learn more tips about how to prepare for power outages during typhoons.</p>
-                    <p class="readmore">Read more &#8594;</p>
-                </div>
-            </div>
-            <div class="newsdiv">
-                <div class="newsimgdiv">
-                    <img class="newsimg" src="static/img/news5.jpg" />
-                </div>
-                <div class="newspdiv">
-                    <p class="comtitle">New Inverter Technology Reduces Consumption by 70%</p>
-                    <p class="comdes">Inverter Technology of Air conditioners and refrigerators reduces its power rating by 70%. Know which appliance is the right one for you. Save up to 30% of your monthly electric bill.</p>
-                    <p class="readmore">Read more &#8594;</p>
-                </div>
-            </div>
-            <div class="placeholderfoot"></div>
-		</div>
-		
-        <!-- CONTAINER 4 -->
-		<div class="container" id="c4">
-            <div class="placeholder"></div>
-            <div class="subhead" id="rewardhead">
-                <form action="/logout" method="POST">
-                    <button id="limitbutton">Log Out</button>
-                </form>
-                <p>Accounts</p>
-			</div>
-			
-			<div id="acc">
-				<h1>Account Details</h1>
-				<form action="/update" method="POST">
-				  <label for="name">Full Name</label>
-				  <input type="text" id="fname" name="name" value='{{ user[0][1] }}' required>
-			  
-				  <label for="email">Email</label>
-				  <input type="email" id="email" name="email" value='{{ user[0][2] }}'required>
+        <div class="footer-center">
 
-				  <label for="password">New Password</label>
-				  <input type="password" id="password" name="password" required>
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>719 M.L Quezon St. Cabancalan</span>Mandaue City, Cebu Philippines</p>
+            </div>
 
-				  <label for="confirm">Confirm Password</label>
-				  <input type="password" id="confirm" name="confirm" required>
-				
-				  <input type="submit" value="Update Info">
-				</form>
-			</div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+63 927 393 9667</p>
+            </div>
+
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="#" style="color: #fed430">Support@ElectriciTips.com</a></p>
+            </div>
+
         </div>
 
+        <div class="footer-right">
 
-        <!-- FOOTER -->
-        
-        <div id="footer" onclick="removeads()">
-            <img src="static/img/ads.png" class="imgfoot">
-            <img src="static/img/ads 2.png" class="imgfoot">
-            <img src="static/img/ads 3.png" class="imgfoot">
-            <img src="static/img/ads 4.png" class="imgfoot">
+            <p class="footer-company-about">
+                <span>About the company</span>
+                Core-i5 envisions the future where machines do more and more work than people used to do,
+                while consuming less the natural resources available.
+            </p>
+
+            <div class="footer-icons">
+                <a href="https://www.facebook.com/Hansel.CESA" class="fb"><i class="fa fa-facebook"></i></a>
+                <a href="https://twitter.com/Hanseeell" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.instagram.com/haaanseeell/" class="insta"><i class="fa fa-instagram"></i></a>
+                <a href="https://github.com/hansel-cmd" class="github"><i class="fa fa-github"></i></a>
+
+            </div>
+
         </div>
-        <div id="deskfooter" onclick="removedeskads()">
-            <img src="static/img/ads.png" class="imgfoot">
-            <img src="static/img/ads 2.png" class="imgfoot">
-            <img src="static/img/ads 3.png" class="imgfoot">
-            <img src="static/img/ads 4.png" class="imgfoot">
-        </div>
-	</div>
-	
-</div>
+
+    </footer>
+    <div class="footer" id="myFooter">
+        <a style="cursor: pointer;" onclick="document.getElementById('id02').style.display='block'">Log In</a>
+        <a style="cursor: pointer;" onclick="document.getElementById('id01').style.display='block'">Sign Up</a>
+      </div>
+
+
+
 <script>
-var counter = 0;
-    var dt1 = 0;
-	var dt2 = 0;
-	var dt3 = 0;
-	var dt4 = 0;
-	var dt5 = 0;
-	    var mt1 = 0;
-	    var mt2 = 0;
-    	var mt3 = 0;
-    	var mt4 = 0;
-    	var mt5 = 0;
-	    var pmt1 = 0;
-	    var pmt2 = 0;
-	    var pmt3 = 0;
-	    var pmt4 = 0;
-	    var pmt5 = 0;
-	var dtotal = 0;
-	var dcosttotal = 0;
-	    var mtotal = 0;
-		var mcosttotal = 0;
-	var actuallimit = 0;
-	var kwhlimit = 0;
-		var limitholder = 0;
-	var mholder = 0;
-	var arraymCost = new Array();
-	var arraydCost = new Array();
-	var arraydailyUsage = new Array();
-	var arraymonthlyUsage = new Array();
-	var i = 0;
-	var ii = 10;
-	var mmcost = 0;
-	var ddcost = 0;
-	var mmusage = 0;
-	var ddusage = 0;
-function openNav() {
-  	document.getElementById("sideadd").style.width = "25%";
-}
-function closeNav() {
-  	document.getElementById("sideadd").style.width = "0";
-}
-function logInPage() {
-	document.getElementById("loginpage").style.height = "62.5%";
-	document.getElementById("notloggedin").style.display = "none";
-	document.getElementById("closebtn").style.display = "block";
-}
-function logIn() {
-	var username = document.getElementById("username").value;
-	var password = document.getElementById("password").value;
-	if (document.getElementById("username").value === ''){
-		alert("Please Enter Username");
-		return;
-	}
-	if (document.getElementById("password").value === ''){
-		alert("Please Enter Password");
-		return;
-	}
-	var pUser = document.createElement("p");
-	var divUser = document.createElement("div");
-	var welcome = document.createTextNode("Welcome "+ username + "!");
-	var prompt = document.createTextNode("Please Scan to Record Usage");
-	var pprompt = document.createElement("p");
-	pUser.appendChild(welcome);
-	pprompt.appendChild(prompt);
-	divUser.appendChild(pUser);
-	divUser.appendChild(document.createElement("br"));
-	divUser.appendChild(pprompt);
-	document.getElementById("c4").appendChild(divUser);
-	closeLogIn();
-	document.getElementById("notloggedin").style.display = "none";
-	document.getElementById("scanbutton").style.display = "block";
-	document.getElementById("claimbutton").style.display = "block";
-	document.getElementById("loginbutton").style.display = "none";
-}
-function closeLogIn() {
-	document.getElementById("loginpage").style.height = "0%";
-	document.getElementById("closebtn").style.display = "none";
-	document.getElementById("notloggedin").style.display = "block";
-}
-function setLimit() {
-	document.getElementById("divprompt").style.width = "92%";
-	document.getElementById("divprompt").style.height = "20%";
-	document.getElementById("divprompt").style.opacity = "1";
-	document.getElementById("divprompt").style.margin = "2%";
-	document.getElementById("divprompt").style.padding = "2%";
-	document.getElementById("closebtnset").style.display = "block";
-	document.documentElement.scrollTop = 0;
-}
-function closeSet() {
-	document.getElementById("divprompt").style.width = "0%";
-	document.getElementById("divprompt").style.height = "0%";
-	document.getElementById("divprompt").style.opacity = "0";
-	document.getElementById("closebtnset").style.display = "none";
-	document.getElementById("divprompt").style.margin = "0%";
-	document.getElementById("divprompt").style.padding = "0%";
-}
-function set() {
-	if (document.getElementById("costlimit").value === ''){
-		alert("Please Enter Monthly Cost Limit");
-		return;
-	}
-	var mlimit = document.getElementById("costlimit").value;
-	alert("Cost Limit Set!");
-	kwhlimit = mlimit;
-	closeSet();
+    //Get the button:
+mybutton = document.getElementById("myBtn");
 
-	document.getElementById("limitbutton").style.display = "none";
-	document.getElementById("editlimit").style.display = "block";
-	update();
-}
-function additem(){
-var p1 = document.createElement("p");
-var p2 = document.createElement("p");
-var p3 = document.createElement("p");
-var p4 = document.createElement("p");
-var p5 = document.createElement("p");
-var p6 = document.createElement("p");
-var p7 = document.createElement("p");
-var br = document.createElement("br");
-var div = document.createElement("div");
-var aclose = document.createElement("a");
-var legend = document.createElement("img");
-var citips = document.createElement("img");
-		var name = document.getElementById("name").value;
-		var type = document.getElementById("type").value;
-		var power = document.getElementById("power").value;
-		var duration = document.getElementById("duration").value;
-		var frequency = document.getElementById("frequency").value;
-			if (document.getElementById("name").value === ''){
-				alert ("Please Enter Name of Item");
-				return;
-			}
-			if (document.getElementById("power").value === ''){
-				alert ("Please Enter Power Rating of Item");
-				return;
-			}
-			//if (document.getElementById("quantity").value === ''){
-			//	alert ("Please Enter the Number of Items");
-			//	return;
-			//}
-//		var qty = document.getElementById("quantity").value;
-//		while(qty > 0){
-			if (document.getElementById("duration").value === ''){
-				alert ("Please Enter Duration of Use");
-				return;
-			}
-			switch (document.getElementById("frequency").value){
-				case "Daily":
-					var factor = 30;
-					break;
-				case "Weekly":
-					var factor = 4;
-					break;
-				case "Monthly":
-					var factor = 1;
-					break;
-				default:
-					alert("Please Select Frequency");
-					return;
-			}
-	var i1 = document.createTextNode(name);
-	var i2 = document.createTextNode(type);
- 	var i3 = document.createTextNode("Power Rating: " + power + "W");
- 	//var i4 = document.createTextNode(duration);
-	//var i5 = document.createTextNode(frequency);
-			switch (factor) {
-				case 1:
-					var days = 30;
-					break;
-				case 4: 
-					var days = 7;
-				default:
-					var days = 1
-					break;
-			}
-	var dailyUsage = power * duration / days / 1000;
-	var dUsage = document.createTextNode("Daily Usage: " + dailyUsage.toFixed(2) + "kWh" );
-		var monthlyUsage = factor * power /1000 * duration;
-		var usage = document.createTextNode("Monthly Usage: " + monthlyUsage.toFixed(2) + "kWh");
-				var dCost = dailyUsage * 11.32;
-				var mCost = monthlyUsage * 11.32;
-			arraydCost[i] = dCost;
-			arraymCost[i] = mCost;
-			arraydailyUsage[i] = dailyUsage;
-			arraymonthlyUsage[i] = monthlyUsage;
-			i = i + 1;
-		var dc = document.createTextNode("Daily Cost: P " + dCost.toFixed(2));
-		var mc = document.createTextNode("Monthly Cost: P " + mCost.toFixed(2));
-		var close = document.createTextNode("x");
-            p1.appendChild(i1);
-	        p2.appendChild(i2);
-	        p3.appendChild(i3);
-	        p4.appendChild(dUsage);
-        	p5.appendChild(usage);
-			p6.appendChild(dc);
-			p7.appendChild(mc);
-			aclose.appendChild(close);
-			legend.id = "legend";
-			citips.id = "citips";
-			citips.onclick = showTips;
-			citips.src = "static/img/citips.png";
-			aclose.id = i;
-			aclose.onclick = remove;
-		var divclosebutton = document.createTextNode("x");
-				div.appendChild(legend);
-				div.appendChild(citips);
-		        div.appendChild(p1);
-        		div.appendChild(p2);
-				div.appendChild(br);
-		        div.appendChild(p3);
-		        div.appendChild(p4);
-		        div.appendChild(p5);
-				div.appendChild(p6);
-				div.appendChild(p7);
-				div.appendChild(aclose);
-				div.id = i;
-		document.getElementById("listofitems").appendChild(div);
-	    document.getElementById("name").value = "";
-	    document.getElementById("power").value = "";
-	    document.getElementById("duration").value = "";
-	        switch (document.getElementById("type").value) {
-    		    case "Entertainment":
-        			dt1 = dt1 + dailyUsage;
-			        mt1 = mt1 + monthlyUsage;
-					legend.src = "static/img/entertainment.png";
-					remwrite();
-					writet1();
-			        break;
-		        case "Lighting":
-			        dt2 = dt2 + dailyUsage;
-			        mt2 = mt2 + monthlyUsage;
-					legend.src = "static/img/lighting.png";
-					remwrite();
-					writet2();
-        			break;
-		        case "Cooling":
-			        dt3 = dt3 + dailyUsage;
-			        mt3 = mt3 + monthlyUsage;
-					legend.src = "static/img/Cooling.png";
-					remwrite();
-					writet3();
-			        break;
-		        case "Kitchen Appliances":
-			        dt4 = dt4 + dailyUsage;
-			        mt4 = mt4 + monthlyUsage;
-					legend.src = "static/img/kitchen.png";
-					remwrite();
-					writet4();
-			        break;
-		        case "Household Appliances":
-			        dt5 = dt5 + dailyUsage;
-			        mt5 = mt5 + monthlyUsage;
-					legend.src = "static/img/household icon.png";
-					remwrite();
-					writet5();
-			        break;
-		        default:
-			        alert("Please Select Type");
-			        return;
-	        }
-		dcosttotal = dcosttotal + dCost;
-		mcosttotal = mcosttotal + mCost;
-    	dtotal = dt1 + dt2 + dt3 + dt4 + dt5;
-        mtotal = mt1 + mt2 + mt3 + mt4 + mt5;
-	    pmt1 = mt1 / mtotal * 100 + "%";
-	    pmt2 = mt2 / mtotal * 100 + "%";
-	    pmt3 = mt3 / mtotal * 100 + "%";
-	    pmt4 = mt4 / mtotal * 100 + "%";
-	    pmt5 = mt5 / mtotal * 100 + "%";
-	        document.getElementById("mt1").style.width = pmt1;
-	        document.getElementById("mt2").style.width = pmt2;
-	        document.getElementById("mt3").style.width = pmt3;
-	        document.getElementById("mt4").style.width = pmt4;
-	        document.getElementById("mt5").style.width = pmt5;
-	        	document.getElementById("mmt1").style.width = pmt1;
-	        	document.getElementById("mmt2").style.width = pmt2;
-	        	document.getElementById("mmt3").style.width = pmt3;
-	        	document.getElementById("mmt4").style.width = pmt4;
-	        	document.getElementById("mmt5").style.width = pmt5;
-		updatewidth();
-		update();
-		alert("Item added!");
-//		qty = qty - 1;
-//}
-	    //document.getElementById("quantity").value = "";
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
 
-	            var itemContainer = document.getElementById("listofitems");
-	            var defaultItem = document.getElementById("defaultitem");
-	                itemContainer.removeChild(defaultItem);
-		
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    mybutton.style.display = "none";
+    document.getElementById("navbar").style.top = "-500px";
+  }
 }
-function update() {
-	if (kwhlimit == 0) {		
-		return;
-	}
-	var holder = mholder / kwhlimit * 100;
-	if (holder < 100) {
-		actuallimit = holder + "%";
-		console.log(actuallimit)
-		document.getElementById("actuallimit").style.width = actuallimit;
-	}
-	else {
-		alert("Your Electricity Usage has exceeded set limit.");
-		document.getElementById("actuallimit").style.width = "100%";
 
-	}
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
-function updatewidth() {
-		document.getElementById("dtotal").innerHTML = "";
-		document.getElementById("mtotal").innerHTML = "";
-		document.getElementById("dcosttotal").innerHTML = "";
-		document.getElementById("mcosttotal").innerHTML = "";
-		document.getElementById("dtotal").innerHTML = dtotal.toFixed(2) + "kWh";
-		document.getElementById("mtotal").innerHTML = mtotal.toFixed(2) + "kWh";
-		document.getElementById("dcosttotal").innerHTML = "P" + dcosttotal.toFixed(2);
-		document.getElementById("mcosttotal").innerHTML = "P" + mcosttotal.toFixed(2);
-		mholder = mcosttotal;
-}
-function scan() {
-	document.getElementById("scanimg").style.display = "block"
-}
-function remove() {
-	this.parentNode.parentNode.removeChild(this.parentNode);
-	//var dd = this.id;
-	//var idd = document.createTextNode(dd);
-	//mcosttotal = mcosttotal - arraymCost[idd];
-	//dcosttotal = dcosttotal - arraydCost[idd];
-	//dtotal = dtotal - arraydailyUsage[idd];
-	//mtotal = mtotal - arraymonthlyUsage[idd];
-	//updatewidth();
-}
-function showTips() {
 
+var modal = document.getElementById('id01');
+var modal1 = document.getElementById('id02');
+var form1 = document.getElementById('form1');
+var form2 = document.getElementById('form2');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal || event.target == modal1) {
+    modal.style.display = "none";
+    modal1.style.display = "none";
+    form1.reset();
+    form2.reset();
+  }
 }
-function active1() {
-	document.getElementById("s1").style.opacity = "0";
-	document.getElementById("as1").style.display = "block";
-}
-function active2() {
-	document.getElementById("s2").style.opacity = "0";
-	document.getElementById("as2").style.display = "block";
-}
-function active3() {
-	document.getElementById("s3").style.opacity = "0";
-	document.getElementById("as3").style.display = "block";
-}
-function active4() {
-	document.getElementById("s4").style.opacity = "0";
-	document.getElementById("as4").style.display = "block";
-}
-function nactive1() {
-	document.getElementById("s1").style.opacity = "1";
-	document.getElementById("as1").style.display = "none";
-}
-function nactive2() {
-	document.getElementById("s2").style.opacity = "1";
-	document.getElementById("as2").style.display = "none";
-}
-function nactive3() {
-	document.getElementById("s3").style.opacity = "1";
-	document.getElementById("as3").style.display = "none";
-}
-function nactive4() {
-	document.getElementById("s4").style.opacity = "1";
-	document.getElementById("as4").style.display = "none";
-}
-function nav1() {
-	document.getElementById("sliding").style.transform = "translatex(0%)";
-	active1();
-	nactive2();
-	nactive3();
-	nactive4();
-}
-function nav2() {
-	document.getElementById("sliding").style.transform = "translatex(-25%)";
-	active2();
-	nactive1();
-	nactive3();
-	nactive4();
-}
-function nav3() {
-	document.getElementById("sliding").style.transform = "translatex(-50%)";
-	active3();
-	nactive1();
-	nactive2();
-	nactive4();
-}
-function nav4() {
-	document.getElementById("sliding").style.transform = "translatex(-75%)";
-	active4();
-	nactive1();
-	nactive2();
-	nactive3();
-}
-nav2();
-function removeads() {
-	document.getElementById("footer").style.display = "none";
-}
-function removedeskads() {
-	document.getElementById("deskfooter").style.display = "none";
-}
-function appearads() {
-	document.getElementById("footer").style.display = "block";
-	document.getElementById("deskfooter").style.display = "block";
-}
-setTimeout(function() {hey();}, 7000);
-function hey() {
-	document.getElementById("title").style.display = "none";
-}
-function itemshelp() {
-	document.getElementById("itemshelp").style.width = "25%";
-}
-function usagehelp() {
-	document.getElementById("usagehelp").style.width = "25%";
-}
-function newshelp() {
-	alert("Click news to read more. \n\n Log In to receive monthly bill alerts.")
-}
-function rewardshelp() {
-	alert("Log in to claim rewards!");
-}
-function showTips(what) {
-	document.querySelector(`#${what}`).style.display = "block";
-}
-function closetip(what) {
-	document.querySelector(`#${what}`).style.display = "none";
-}
-function remwrite() {
-	document.getElementById("tiptitle").innerHTML = "";
-	document.getElementById("tipsub").innerHTML = "";
-}
-function writet1() {
-	document.getElementById("tiptitle").innerHTML = "Use an LED television";
-	document.getElementById("tipsub").innerHTML = "Older LCD TVs used cold cathode fluorescent lamps or CCFLs to provide backlighting, whereas LED-backlit LCD TVs used an array of smaller, more efficient light-emitting diodes or LEDs to illuminate the screen.";
-}
-function writet2() {
-	document.getElementById("tiptitle").innerHTML = "Consider task lighting at home instead of using ambient lighting";
-	document.getElementById("tipsub").innerHTML = "Place floor lamps or table lamps in a corner, as light will reflect from the wall surfaces, increasing the luminance in the area.";
-}
-function writet3() {
-	document.getElementById("tiptitle").innerHTML = "Keep the AC Lower at Night";
-	document.getElementById("tipsub").innerHTML = "During the night you do not require the same level of conscious cool. Try turning your AC down so it is running less during your sleep hours or, if your unit has one, utilize the Sleep Mode which lowers the output on a timer.";
-}
-function writet4() {
-	document.getElementById("tiptitle").innerHTML = "Defrost your fridge and freezer";
-	document.getElementById("tipsub").innerHTML = "Defrost at least every 6 months to ensure it runs efficiently. There should be less than 5mm of frost build up.";
-}
-function writet5() {
-	document.getElementById("tiptitle").innerHTML = "Use fabric softener to soften your clothes to reduce the amount of time spent on ironing.";
-	document.getElementById("tipsub").innerHTML = "As a rule of thumb, only iron clothes that are not made of wrinkle-resistant fabric like silk and polyester";
-}
+
+
+
 </script>
+
 </body>
 </html>
+

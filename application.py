@@ -118,8 +118,10 @@ def login():
         user = pg_cursor.fetchall()
 
         if len(user) <= 0 or not check_password_hash(user[0][3], password):
+            session['incorrect_credentials'] = 1
             return redirect('/')
         
+        session['incorrect_credentials'] = 0
         session['user_id'] = user[0][0]
 
         pg_cursor.execute("SELECT * from appliances WHERE user_id = %s", [user[0][0]])
@@ -134,7 +136,7 @@ def login():
 @app.route('/')
 def index():
     if session.get('user_id') is None:
-        return render_template('index.html')
+        return render_template('index.html', message = session.get('user_exists'), msg = session.get('incorrect_credentials'))
     else:
         return redirect('/home')
 
@@ -155,7 +157,6 @@ def home():
 
     length = len(apps)
 
-    mtotal = 0
     entertainment_block = 0
     lighting_block = 0
     cooling_block = 0
@@ -288,8 +289,14 @@ def signup():
         password = request.form.get('password')
 
 
-       
+        pg_cursor.execute("SELECT * FROM users WHERE email = %s", [email])
+        user = pg_cursor.fetchall()
 
+        if len(user) > 0:
+            session['user_exists'] = 1
+            return redirect('/')
+       
+        session['user_exists'] = 0
         pg_cursor.execute("INSERT INTO users (name, email, password, cost_limit) VALUES (%s, %s, %s, '1000')", [name, email, generate_password_hash(password)])
         pg_conn.commit()
 
